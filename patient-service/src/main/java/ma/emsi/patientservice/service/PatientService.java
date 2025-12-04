@@ -1,10 +1,8 @@
 package ma.emsi.patientservice.service;
 
 import ma.emsi.patientservice.dto.PatientDTO;
-import ma.emsi.patientservice.entities.Patient;
 import ma.emsi.patientservice.exceptions.PatientNotFoundException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 public interface PatientService {
     Page<PatientDTO> findAllPatients(int page, int size);

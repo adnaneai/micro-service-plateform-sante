@@ -23,14 +23,12 @@ import java.util.List;
 public class PatientServiceImpl implements PatientService {
     private PatientRepository patientRepository;
     private PatientMapper patientMapper;
-
     @Override
     public Page<PatientDTO> findAllPatients(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Patient> patientPage = patientRepository.findAll(pageable);
         return patientPage.map(patient -> patientMapper.fromPatientToPatientDTO(patient));
     }
-
     @Override
     public Page<PatientDTO> findPatientByKeyWord(String keyword,int page,int size) throws PatientNotFoundException {
         Page<Patient> patientPage = patientRepository.searchPatients(keyword,PageRequest.of(page, size));
@@ -40,7 +38,6 @@ public class PatientServiceImpl implements PatientService {
         Page<PatientDTO> patientDTOPage = patientPage.map(patient -> patientMapper.fromPatientToPatientDTO(patient));
         return patientDTOPage;
     }
-
     @Override
     public PatientDTO savePatient(PatientDTO patientDTO) {
         Patient patient = patientMapper.fromPatientDTOtoPatient(patientDTO);
@@ -48,7 +45,6 @@ public class PatientServiceImpl implements PatientService {
         patientRepository.save(patient);
         return patientMapper.fromPatientToPatientDTO(patient);
     }
-
     @Override
     public PatientDTO updatePatient(Long id, PatientDTO patientDTO) throws PatientNotFoundException {
         Patient patient = patientRepository.findById(id)
@@ -65,7 +61,6 @@ public class PatientServiceImpl implements PatientService {
         Patient updatedPatient = patientRepository.save(patient);
         return patientMapper.fromPatientToPatientDTO(updatedPatient);
     }
-
     @Override
     public void deletePatient(Long id) throws PatientNotFoundException {
         Patient patient = patientRepository.findById(id)
