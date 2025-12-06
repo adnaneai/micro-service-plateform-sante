@@ -35,7 +35,12 @@ public class DocteurServiceImpl implements DocteurService {
         }
         return docteurPage.map(docteur -> docteurMapper.fromDocteurtoDocteurDTO(docteur));
     }
-
+    @Override
+    public DocteurDTO findDocteurById(Long id) throws DocteurNotFoundException {
+        Docteur docteur = docteurRepository.findById(id)
+                .orElseThrow(() -> new DocteurNotFoundException("Docteur not found with id: " + id));
+        return docteurMapper.fromDocteurtoDocteurDTO(docteur);
+    }
     @Override
     public DocteurDTO saveDocteur(DocteurDTO docteurDTO) {
         Docteur docteur = docteurMapper.fromDocteurDTOtoDocteur(docteurDTO);

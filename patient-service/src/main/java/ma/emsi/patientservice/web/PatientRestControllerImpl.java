@@ -31,7 +31,12 @@ public class PatientRestControllerImpl implements PatientRestController {
         Page<PatientDTO> patientDTOPage = patientService.findPatientByKeyWord(keyword, page, size);
         return ResponseEntity.ok(patientDTOPage);
     }
-
+    @GetMapping("/id/{id}")
+    @Override
+    public ResponseEntity<PatientDTO> findPatientById(@PathVariable("id") Long id) throws PatientNotFoundException {
+        PatientDTO patientDTO = patientService.findPatientById(id);
+        return ResponseEntity.ok(patientDTO);
+    }
     @PostMapping
     @Override
     public ResponseEntity<PatientDTO> savePatient(@RequestBody PatientDTO patientDTO) {

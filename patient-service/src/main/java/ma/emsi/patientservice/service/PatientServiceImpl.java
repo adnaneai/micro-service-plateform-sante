@@ -39,6 +39,12 @@ public class PatientServiceImpl implements PatientService {
         return patientDTOPage;
     }
     @Override
+    public PatientDTO findPatientById(Long id) throws PatientNotFoundException {
+        Patient patient = patientRepository.findById(id)
+                .orElseThrow(() -> new PatientNotFoundException("Patient not found with id " + id));
+        return patientMapper.fromPatientToPatientDTO(patient);
+    }
+    @Override
     public PatientDTO savePatient(PatientDTO patientDTO) {
         Patient patient = patientMapper.fromPatientDTOtoPatient(patientDTO);
         patient.setDateCreation(new Date());
